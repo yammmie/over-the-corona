@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>서울시상권트렌드2021</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<section id="side_bar"> 
+				<div id="market_header">
+					<button class="btn_side_close">
+						<img src="../static/image/close_icon.png">
+					</button>
+				</div>
+				<div class="side_bar_header">
+					<label for='market_name'>상권 검색: </label>
+					<select name="market_name" id="market" onchange="market_code(this.value)">
+						<option>선택</option>
+						{%for i in market%}
+							<option value="{{i.get('상권_코드')}}">{{i.get('상권_코드_명')}}</option>
+						{%endfor%}
+					</select>
+					<label for="ctg">업종검색:</label>
+					<select name="ctg_name" id="service" onchange="get_service_list(this.value)">
+						<option value="test">목록</option>
+						<option value="1"></option>
+						<option value="2"></option>
+						<option value="3"></option>
+					</select>
+				</div>
+				<div id="first">
+					<canvas id="gender_ratio" width="400" height="250"></canvas>
+				</div>
+				<div id="second">
+					<canvas id="age_ratio" width="400"	height="250"></canvas>
+				</div>
+				<div id="third">
+					<canvas id='day_ratio'width='400' height="250"></canvas>
+				</div>
+				<div id="fourth">
+					<canvas id='service_sale'width='400' height="250"></canvas>
+				</div>
+			</section>
+
+			<div class="intro_bg">
+				<header>
+					<button class="btn_menu" onclick="modal('block')">
+						<img src="../static/image/menu_icon.png">
+					</button>
+					<div class="modal" id="modal_on">
+						<nav class="inner_nav">
+							<ul class="main_menu">
+								<li><a href="/factor">요인분석</a></li>
+								<li><a href="/extra">부가서비스</a></li>
+							</ul>
+						</nav>
+						<button class="btn_close" onclick="modal('none')">
+							<img src="../static/image/close_icon.png">
+						</button>
+					</div>
+					<nav class="bar_nav">
+						<ul>
+							<!-- <li><a href ='#link_header'>HOME</a></li> -->
+							<li><a href="#link_top_five">REVENUE</a></li>
+							<li><a href="#link_total_amount">CHANGE</a></li>
+							<li><a href="#link_trend_report">TREND</a></li>
+						</ul>
+					</nav>
+				</header>
+				<div class="intro_title">
+					<h1>서울 상권 트렌드 2021</h1>
+				</div>
+				<div class="intro_txt">
+					<p>창업을 고려하시는 분들께 서울시의 2021년 상권 트렌드를 제시합니다.<p>
+					<p>이 트렌드가 예비 창업자분들에게 도움이 되어</p>
+					<p>성공적인 새 출발을 할 수 있는 발판이 되었으면 합니다.</p>
+						
+			</div>
+			<!-- intro_end -->
+			<ul class="amount">
+				<li>
+					<div>
+						<div><b>최고 매출 상권</b></div>
+						<div>용산 전자 상가</div>
+					</div>
+				</li>
+				<li>
+					<div>
+						<div><b>2020 최고매출 업종</b></div>
+						<div>수산물 판매</div>
+					</div>
+				</li>
+				<li>
+					<div>
+						<div><b>최고 매출상승률 상권</b></div>
+						<div>용산 전자 상가</div>
+					</div>
+				</li>
+				<li>
+					<div>
+						<div><b>최고 매출상승률 업종</b></div>
+						<div>조명용품</div>
+					</div>
+				</li>
+				<li>
+					<div>
+						<div><b>월 평균 매출</b></div>
+						<div>29,115,920원</div>
+					</div>
+				</li>
+			</ul>
+			<!-- first page end  -->
+			<div class="top_five" id="link_top_five">
+				<h1>
+					<b>01</b>
+					매출 증감률 상위, 하위 업종
+				</h1>
+				<div class="exp">
+					<p>
+						2020년 서울시 기준 업종별 월 평균 매출 증감률을 나타냈으며, <br>
+						점포수 증감률이 상이함을 참고하세요.
+					</p>
+				</div>
+				<div class="report_rank">
+					<div class="rank_box">
+						<h3>매출 증감률 상위 업종</h3>
+						<section class="ranking">
+							<div class="ranking_header">
+								<span class="c_1">순위</span>
+								<span class="c_2">업종</span>
+								<span class="c_3">증감율</span>
+							</div>
+							<dl class="first">
+								<dt class="c_1">1</dt>
+								<dd class="c_2_first">{{sales_top[0]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_top[0]['전년도비_매출_증감률']}}%</dd>	
+							</dl>
+							<dl>
+								<dt class="c_1">2</dt>
+								<dd class="c_2">{{sales_top[1]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_top[1]['전년도비_매출_증감률']}}%</dd>	
+								
+							</dl>
+							<dl>
+								<dt class="c_1">3</dt>
+								<dd class="c_2">{{sales_top[2]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_top[2]['전년도비_매출_증감률']}}%</dd>	
+							
+							</dl>
+							<dl>
+								<dd class="c_1">4</dd>
+								<dd class="c_2">{{sales_top[3]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_top[3]['전년도비_매출_증감률']}}%</dd>	
+								
+							</dl>
+							<dl>
+								<dt class="c_1">5</dt>
+								<dd class="c_2">{{sales_top[4]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_top[4]['전년도비_매출_증감률']}}%</dd>	
+							</dl>
+						</section>
+					</div>
+					<div class="rank_box">
+						<h3>매출 증감률 하위 업종</h3>
+						<section class="ranking">
+							<div class="ranking_header">
+								<span class="c_1">순위</span>
+								<span class="c_2">업종</span>
+								<span class="c_3">증감율</span>
+							</div>
+							<dl class="first">
+								<dt class="c_1">1</dt>
+								<dd class="c_2_first">{{sales_low[0]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_low[0]['전년도비_매출_증감률']}}%</dd>	
+							</dl>
+							<dl>
+								<dt class="c_1">2</dt>
+								<dd class="c_2">{{sales_low[1]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_low[1]['전년도비_매출_증감률']}}%</dd>	
+								
+							</dl>
+							<dl>
+								<dt class="c_1">3</dt>
+								<dd class="c_2">{{sales_low[2]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_low[2]['전년도비_매출_증감률']}}%</dd>	
+							
+							</dl>
+							<dl>
+								<dd class="c_1">4</dd>
+								<dd class="c_2">{{sales_low[3]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_low[3]['전년도비_매출_증감률']}}%</dd>	
+								
+							</dl>
+							<dl>
+								<dt class="c_1">5</dt>
+								<dd class="c_2">{{sales_low[4]['서비스_업종_코드_명']}}</dd>
+								<dd class="c_3">{{sales_low[4]['전년도비_매출_증감률']}}%</dd>	
+							</dl>
+						</section>
+					</div>
+				</div>
+				<!-- second page -->
+			</div>
+			<div class="total_amount" id="link_total_amount">
+				<h1>
+					<b>02</b>
+					전체적 매출, 점포수 변화
+				</h1>
+				<div class="exp">
+					<h3>연 평균 매출액 유지, 점포수 급감</h3>
+					<p>
+						점포수는 급감하는 반면 연 매출액은 유지되는 것으로 보아<br>
+						상위 업종이 매출의 큰 비중을 가지고 있다고 생각됩니다.
+					</p>
+				</div>
+				<div class="report_rank">
+					<div class="rank_box">
+						<h3>매출</h3>
+						<canvas id="sales_bar" width="350" height="300"></canvas>
+						<script>
+							const rev = document.getElementById('sales_bar').getContext('2d');
+							const revenueChart = new Chart(rev, {
+								type: 'line',
+								data: {
+									labels: {{revenue[0] | tojson}},
+									datasets: [{
+										label: '매출액',
+										data: {{revenue[1] | tojson}},
+										backgroundColor:'#1a7cff',
+										borderColor:'#1a7cff',
+										borderWidth: 4,
+										borderColor: '#1a7cff',
+										hoverBorderWidth:4,
+									}]
+								},
+								options: {
+									responsive: false,
+									scales: {
+										x:{
+											grid:{
+												display:false,
+											}
+										},
+										y: {
+											grid:{
+												display:false,
+											},
+											beginAtZero: true
+										}
+									},
+									plugins: {
+									title:{
+										display:false,
+
+									},
+									legend:{
+										display:false,
+									}
+								}
+								}
+								
+							});
+						</script>
+					</div>
+					<div class="rank_box">
+						<h3>점포수</h3>
+						<canvas id="closed_bar" width="350" height="300"></canvas>
+						<script>
+							const store = document.getElementById('closed_bar').getContext('2d');
+							const storeChart = new Chart(store, {
+								type: 'line',
+								data: {
+									labels: {{store[0] | tojson}},
+									datasets: [{
+										label: '점포수',
+										data: {{store[1] | tojson}},
+										backgroundColor: '#1a7cff',
+										borderColor: '#1a7cff',
+										borderWidth: 4,
+										borderColor: '#1a7cff',
+										hoverBorderWidth:4,
+									}]
+								},
+								options: {
+									responsive: false,
+									scales: {
+										x:{
+											grid:{
+												display:false,
+											}
+										},
+										y: {
+											grid:{
+												display:false,
+											},
+											beginAtZero: true
+										}
+									},
+									plugins: {
+									title:{
+										display:false,
+	
+									},
+									legend:{
+										display:false,
+									}
+								}
+								}
+								
+							});
+						</script>
+
+					</div>
+				</div>
+				
+			</div>
+			<!-- fourth page -->
+			<div class="trend_report" id="link_trend_report">
+				<h1>
+					<b>03</b>
+					트렌드
+				</h1>
+				<div class="exp">
+					<h3>서울시 상위 업종 10가지</h3>
+					<p>
+						기타 업종에는 53가지의 업종이 포함되어 있으며<br>
+						책갈피를 클릭하면 상권별 업종 세부 정보를 알아볼 수 있습니다.
+					</p>
+				</div>
+				<div class="report_rank">
+					
+					<div class="graph_box">
+						<canvas id="trend_chart" width="500" height="350"></canvas>
+						<script>
+							const trend = document.getElementById('trend_chart').getContext('2d');
+							const trendChart = new Chart(trend, {
+							    type: 'pie',
+							    data: {
+							        labels:{{trend[0] | tojson}},
+							        datasets:[{
+							            label: 'trend_view',
+							            data: {{trend[1] | tojson}},
+							            backgroundColor:[
+											'#084081',
+											'#0868ac',
+											'#2b8cbe',
+											'#4292c6',
+											'#6baed6',
+											'#4eb3d3',
+											'#7bccc4',
+											'#a8ddb5',
+											'#ccebc5',
+											'#e0f3db',
+											'#D7EAFC',
+
+										],
+							            borderWidth:0.3,
+							            borderColor :'#f0f0f0',
+							            hoverBorderWidth:4,    
+							        }]
+								
+							    },
+							    options: {
+							        responsive: false,
+							        plugins: {
+							            title: {
+							                display: true,
+							                text: 'trend',
+							                fontsize: 10,
+							            },
+							            legend :{
+							                display: true,
+							                position:'left',
+							             },
+							            tooltips: {
+							                enabled: true,
+							            },
+							            layout: {
+							                top:10
+							            },
+							        }
+							    }
+							
+							
+							})
+						</script>
+					</div>
+
+					<button class="btn_side">
+						<img src="../static/image/menu_icon.png">
+					</button>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="../static/js/main.js"></script>
+	</body>
+</html>

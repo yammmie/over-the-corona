@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: #f0f0f0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.wrap {
+    width: 100%;
+    min-width: 800px;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    min-width: 600px;
+    height: 86px;
+    align-items: center;
+    background-color:rgba(17, 17, 17, 0.85) !important;
+}
+
+header h1 b {
+    margin-left: 20px;
+	font-size: 34px;
+    color: #fff;
+}
+
+.btn_menu {
+    margin-left: 5px;
+    min-width: 61px;
+    width: 40px;
+    height: 61px;
+    z-index: 999;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btn_menu img, .btn_close img {
+    width: 40px;
+    height: 40px;
+}
+
+.btn_close {
+    position: fixed;
+    left: 8px;
+    top: 15px;
+    min-width: 59px;
+    width: 55px;
+    height: 55px;
+    z-index: 999;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding-left: 120px;
+    z-index: 999;
+    background: rgba(17, 17, 17, 0.85);
+}
+
+header nav {
+    width: calc(100% - 260px);
+}
+
+header nav ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+header nav li {
+    list-style-type: none;
+    margin-right: 41px;
+}
+
+header nav li a {
+    color:floralwhite;
+}
+
+.inner_nav { 
+    display: inline-block;
+    position: unset;
+}
+
+.main_menu {
+   position: relative;
+   margin-top: 22px;
+   padding: 0;
+   display: inline-block; 
+}
+
+.main_menu > li {
+    display: flex;
+}
+
+.main_menu > li > a {
+    display: inline-block;
+    line-height: 64px;
+    font-size: 40px;
+    font-weight: 400;
+    font-family: "BM Hanna", sans-serif;
+    margin-bottom: 5px;
+    letter-spacing: -0.038em;
+    color:#ffffff;
+}
+
+section {
+    width: 700px;
+    height: auto;
+    margin: 0 auto 50px;
+}
+
+section#search {
+    width: 600px;
+    height: 100px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#detail_commercial_area {
+    position: relative;
+    width: 220px;
+    padding: 0;
+    margin-left: 40px;
+    list-style-type: none;
+    background-color: white;
+    overflow: auto;
+    height: auto;
+    max-height: 150px;
+    z-index: 999;
+    box-shadow: 0 9px 8px -3px rgb(64 60 67 / 24%), 8px 0 8px -7px rgb(64 60 67 / 24%), -8px 0 8px -7px rgb(64 60 67 / 24%);
+}
+
+.add_li {
+    padding: 5px 20px;
+    background-color: white;
+    line-height: 35px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+}
+
+#commercial_area {
+    background-color: white;
+    border: 1px solid;
+    width: 160px;
+    height: 35px;
+    padding: .3em .5em;
+    margin-right: 30px;
+}
+
+/* select */
+/* #upjong { */
+select {
+    background-color: white;
+    width: 120px;
+    height: 35px;
+    padding: .3em .5em;
+}
+
+.btn_search {
+    width: 50px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a7cff;
+    color: white;
+    margin-left: 30px;
+}
+
+.area_list {
+    display: none;
+}
+
+section .title {
+    width: 500px;
+    text-align: center;
+    margin: 0 auto 30px;
+}
+
+section h2 {
+    margin-bottom: 15px;
+}
+
+section p {
+    font-size: 15px;
+    line-height: 24px;
+    color: hsla(0, 0%, 33%, 0.808);
+}
+
+.title > h2 > b {
+    height: 38px;
+    margin-right: 10px;
+    padding: 0 15px;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 38px;
+    background-color: #1a7cff;
+    border-radius: 19px;
+    display: inline-block;
+}
+
+.title a {
+    color: black;
+}
+
+/* .data_box { */
+#arbeit, #franchise, #real_estate {
+    width: 700px;
+}
+
+#arbeit_chart, #franchise_chart {
+    width: 700px;
+    height: 330px;
+    background-color: white;
+    box-shadow: 0 9px 8px -3px rgb(64 60 67 / 24%), 8px 0 8px -7px rgb(64 60 67 / 24%), -8px 0 8px -7px rgb(64 60 67 / 24%);
+}
+
+#day, #time, #stability, #profitability {
+    width: 350px;
+    height: 330px;
+    float: left;
+}
+
+#canvas_day, #canvas_time, #canvas_stability, #canvas_profitability {
+    margin: 10px auto;
+    /* background-color: white; */
+}
+
+.item_search {
+    width: 700px;
+    text-align: center;
+}
+
+.item_search select {
+    margin-right: 20px;
+}
+
+#item_list {
+    width: 600px;
+    margin: 20px auto;
+    list-style-type: none;
+    overflow: auto;
+    padding: 0;
+    box-shadow: 0 9px 8px -3px rgb(64 60 67 / 24%), 8px 0 8px -7px rgb(64 60 67 / 24%), -8px 0 8px -7px rgb(64 60 67 / 24%);
+}
+
+#item_list li {
+    padding: 20px 0 20px 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+}
+
+#item_list li p {
+    margin: 5px 0;
+    color: black;
+}
+
+.li_title {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-right: 10px; 
+}
+
+.li_content {
+    margin-top: 5px;
+    margin-right: 10px; 
+}
+
+.p_result {
+    margin: 40px auto; 
+    text-align:center;
+    color: black;
+}
